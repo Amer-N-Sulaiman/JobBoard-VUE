@@ -33,9 +33,7 @@ export default {
             try {
                 const response = await axios.get('http://localhost:5000/job/view_all');
                 this.jobs = response.data;
-                console.log(this.jobs)
-                console.log(this.jobs[0])
-                console.log(this.jobs[0].id)
+                
             } catch (error) {
                 console.error('Error fetching jobs:', error);
             }

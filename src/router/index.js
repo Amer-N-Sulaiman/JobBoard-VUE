@@ -7,8 +7,9 @@ import Signup from '../views/Signup.vue'
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    redirect: {name: 'Listings'}
+    // name: 'Home',
+    // component: Home
   },
   {
     path: '/about',

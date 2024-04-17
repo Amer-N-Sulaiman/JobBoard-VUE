@@ -63,6 +63,7 @@
                 
                 this.$cookies.remove('token')
                 this.refresh = !this.refresh
+                this.emitter.emit('loggedOut')
             }
         }
     }

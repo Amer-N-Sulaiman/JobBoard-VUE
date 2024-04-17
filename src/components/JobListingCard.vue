@@ -15,6 +15,9 @@
 <script>
 export default {
     name: 'JobListingCard',
+    created() {
+        this.emitter.on('loggedOut', ()=>{this.refresher=!this.refresher})
+    },
     props: {
         job: null
     },
