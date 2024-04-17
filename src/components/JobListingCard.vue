@@ -4,9 +4,9 @@
     <div class="card-body">
         <h5 class="card-title mb-3">{{ job.title }}</h5>
         <p class="card-text">{{ job.body }}</p>
-        <a href="#" v-if="!didApply && !submitting" class="btn btn-primary" @click="handleApply">Apply</a>
-        <a href="#" v-if="submitting" class="btn btn-primary" @click="handleApply">Applying ...</a>
-        <a href="#" v-if="didApply && !submitting" class="btn btn-primary" @click="handleApply">Cancel Apply</a>
+        <button v-if="!didApply && !submitting" class="btn btn-primary" @click="handleApply">Apply</button>
+        <button v-if="submitting" class="btn btn-primary" @click="handleApply">Applying ...</button>
+        <button v-if="didApply && !submitting" class="btn btn-primary" @click="handleApply">Cancel Apply</button>
         <p class="mt-3"><em>Posted By {{ job.posted_by }} On {{ job.date_posted }}</em></p>
     </div>
     </div>
@@ -59,6 +59,7 @@ export default {
 
             if (!this.user){
                 this.$notify({
+                    type: "warn",
                     title: "You're Not Logged In",
                     text: "Please log in to continue"
                 })
