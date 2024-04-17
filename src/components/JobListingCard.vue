@@ -56,6 +56,14 @@ export default {
     },
     methods: {
         async handleApply() {
+
+            if (!this.user){
+                this.$notify({
+                    title: "You're Not Logged In",
+                    text: "Please log in to continue"
+                })
+                return
+            }
             this.submitting = true;
 
             const requestOptions = {
@@ -68,7 +76,7 @@ export default {
                 
             };
             try {
-                const response = await fetch("http://localhost:5000/job/apply/"+this.job.id, requestOptions)
+                const response = await fetch("http://localhost:5000/job/apply/" + this.job.id, requestOptions)
                 const data = await response.json()
                 this.job.appliers = data.appliers
             } catch(error) {

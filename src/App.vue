@@ -1,6 +1,7 @@
 <template>
   <Navbar />
   <router-view />
+  <notifications position="bottom left" class="mb-4 ml-5"/>
 </template>
 
 <script>

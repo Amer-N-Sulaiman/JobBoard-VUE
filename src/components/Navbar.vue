@@ -22,6 +22,9 @@
                         <router-link class="nav-link" to="/login">Login</router-link>
                     </li>
                     <li v-if="token" class="nav-item">
+                        <router-link class="nav-link" to="/addjob" >Post a Job</router-link>
+                    </li>
+                    <li v-if="token" class="nav-item">
                         <router-link class="nav-link" to="#" @click="handleLogout">Logout</router-link>
                     </li>
                 </ul>
