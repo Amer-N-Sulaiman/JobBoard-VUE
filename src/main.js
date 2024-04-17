@@ -6,4 +6,11 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
 import VueCookies from 'vue3-cookies'
 
-createApp(App).use(router).use(VueCookies, { expires: '30d'}).mount('#app')
+import mitt from 'mitt';
+const emitter = mitt();
+
+const app = createApp(App);
+app.config.globalProperties.emitter = emitter;
+
+
+app.use(router).use(VueCookies, { expires: '30d'}).mount('#app')

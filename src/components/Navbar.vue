@@ -22,7 +22,7 @@
                         <router-link class="nav-link" to="/login">Login</router-link>
                     </li>
                     <li v-if="token" class="nav-item">
-                        <router-link class="nav-link" to="/login">Logout</router-link>
+                        <router-link class="nav-link" to="#" @click="handleLogout">Logout</router-link>
                     </li>
                 </ul>
             </div>
@@ -33,11 +33,36 @@
 </template>
 
 <script>
+
+
     export default{
         name: 'Navbar',
+        created(){
+            this.emitter.on('loggedIn', token=>{
+                this.refresh=!this.refresh
+                console.log('emitted log in')
+            })
+        },
+        
+        data(){
+            return{
+                refresh: false
+            }
+        },
         computed: {
             token() {
-                return this.$cookies.get('token')
+                console.log('token recomputed')
+                this.refresh;
+                const token = this.$cookies.get('token')
+                return token
+            }
+        },
+        methods: {
+            handleLogout() {
+
+                
+                this.$cookies.remove('token')
+                this.refresh = !this.refresh
             }
         }
     }

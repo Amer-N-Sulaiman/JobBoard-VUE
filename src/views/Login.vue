@@ -16,7 +16,8 @@
                 <input type="password" class="form-control" id="password" v-model="password">
             </div>
             
-            <button type="button" class="btn btn-primary" @click="handleLogin">Submit</button>
+            <button v-if="!submitting" type="button" class="btn btn-primary" @click="handleLogin">Submit</button>
+            <button v-else type="button" class="btn btn-primary" disabled>Submitting ...</button>
 
         </form>
     </div>
@@ -24,17 +25,22 @@
 </template>
 
 <script>
+import router from '../router';
+
+
 export default {
     name: 'Login',
+
     data(){
         return {
             username: '',
-            password: ''
+            password: '',
+            submitting: false,
         }
     },
     methods: {
         async handleLogin(){
-
+            this.submitting = true;
             const body = JSON.stringify({ 
                 "username": this.username,
                 "password": this.password
@@ -48,11 +54,19 @@ export default {
             try {
                 const response = await fetch("http://localhost:5000/user/login", requestOptions)
                 const data = await response.json();
+                if (!data.token){
+                    console.log('data', data.error)
+                    throw data.error  
+                } 
                 const token = data.token
                 this.$cookies.set('token', token)
-            } catch {
-                console.log('there was an error')
+                this.emitter.emit('loggedIn', token)
+                router.push('/listings')
+                
+            } catch(error) {
+                console.log('Error', error)
             }
+            this.submitting = false
         }
     }
 }
