@@ -21,6 +21,11 @@
 
         </form>
     </div>
+
+    </div>
+
+    <div v-if="error" class="alert alert-danger col-10 col-md-5 mt-3 mx-auto" role="alert">
+        {{ error }}
     </div>
 </template>
 
@@ -36,6 +41,7 @@ export default {
             username: '',
             password: '',
             submitting: false,
+            error: ''
         }
     },
     methods: {
@@ -64,7 +70,7 @@ export default {
                 router.push('/listings')
                 
             } catch(error) {
-                console.log('Error', error)
+                this.error = error
             }
             this.submitting = false
         }

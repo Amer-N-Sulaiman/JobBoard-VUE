@@ -31,6 +31,10 @@
             </form>
         </div>
     </div>
+
+    <div v-if="error" class="alert alert-danger col-10 col-md-5 mt-3 mx-auto" role="alert">
+        {{ error }}
+    </div>
 </template>
 
 <script>
@@ -67,6 +71,7 @@ export default{
                 const response = await fetch("http://localhost:5000/user/signup", requestOptions)
                 const data = await response.json();
                 if (!data.token){
+                    console.log('data', data)
                     throw data.error  
                 } 
                 const token = data.token
@@ -75,7 +80,7 @@ export default{
                 router.push('/listings')
                 
             } catch(error) {
-                console.log('Error:', error)
+                this.error = error
             }
             this.submitting = false
         }
