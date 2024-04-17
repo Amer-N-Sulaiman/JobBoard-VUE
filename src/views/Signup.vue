@@ -76,6 +76,8 @@ export default{
                 } 
                 const token = data.token
                 this.$cookies.set('token', token)
+                this.$cookies.set('username', data.username)
+                this.$cookies.set('user_id', data.user_id)
                 this.emitter.emit('loggedIn', token)
                 router.push('/listings')
                 

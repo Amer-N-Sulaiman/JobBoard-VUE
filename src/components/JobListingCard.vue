@@ -4,7 +4,9 @@
     <div class="card-body">
         <h5 class="card-title mb-3">{{ job.title }}</h5>
         <p class="card-text">{{ job.body }}</p>
-        <a href="#" class="btn btn-primary">apply</a>
+        <a href="#" v-if="!didApply && !submitting" class="btn btn-primary" @click="handleApply">Apply</a>
+        <a href="#" v-if="submitting" class="btn btn-primary" @click="handleApply">Applying ...</a>
+        <a href="#" v-if="didApply && !submitting" class="btn btn-primary" @click="handleApply">Cancel Apply</a>
         <p class="mt-3"><em>Posted By {{ job.posted_by }} On {{ job.date_posted }}</em></p>
     </div>
     </div>
@@ -15,6 +17,64 @@ export default {
     name: 'JobListingCard',
     props: {
         job: null
+    },
+    data(){
+        return {
+            refresher: false,
+            submitting: false
+        }
+    },
+    computed: {
+        user(){
+            if (!this.$cookies.isKey('token')){
+                return null
+            }
+            const new_user = {
+                username: this.$cookies.get('username'),
+                token: this.$cookies.get('token'),
+                user_id: this.$cookies.get('user_id')
+            }
+            
+            return new_user
+        },
+        didApply(){
+            if (!this.$cookies.isKey('token')){
+                return false
+            }
+
+            const user_id = this.$cookies.get('user_id')
+            this.refresher
+            if (this.job.appliers.includes(user_id)){
+                return true
+            } else{
+                return false
+            }
+        }
+    },
+    methods: {
+        async handleApply() {
+            this.submitting = true;
+
+            const requestOptions = {
+                method: "GET",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": 'Bearer '+ this.user.token,
+                },
+                
+                
+            };
+            try {
+                const response = await fetch("http://localhost:5000/job/apply/"+this.job.id, requestOptions)
+                const data = await response.json()
+                this.job.appliers = data.appliers
+            } catch(error) {
+                console.log(error)
+            }
+            this.refresher = !this.refresher
+            this.submitting = false
+
+        }
     }
 }
 </script>
