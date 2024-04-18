@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import g_data from '@/g_data';
 export default {
     name: 'AddJob',
     data(){
@@ -60,7 +61,7 @@ export default {
             };
 
             try {
-                const response = await fetch("http://localhost:5000/job/add", requestOptions)
+                const response = await fetch(g_data.api_url + "/job/add", requestOptions)
                 const data = await response.json();
                 if (data.error){
                     console.log('data', data.error)

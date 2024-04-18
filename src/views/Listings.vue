@@ -14,6 +14,7 @@
 
 import axios from 'axios';
 import JobListingCard from '../components/JobListingCard.vue';
+import g_data from '@/g_data.js'
 
 export default {
 
@@ -29,12 +30,13 @@ export default {
         
     },
     created(){
+        console.log('api_url', g_data.api_url)
         this.fetchJobs()
     },
     methods: {
         async fetchJobs() {
             try {
-                const response = await axios.get('http://localhost:5000/job/view_all/' + this.skipJobsNumber);
+                const response = await axios.get(g_data.api_url+'/job/view_all/' + this.skipJobsNumber);
                 if (response.data.length>0){
                     this.jobs.push.apply(this.jobs, response.data)
                     this.skipJobsNumber+=2

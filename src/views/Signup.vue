@@ -39,6 +39,7 @@
 
 <script>
 import router from '../router';
+import g_data from '@/g_data.js'
 
 export default{
     data(){
@@ -68,7 +69,7 @@ export default{
             };
 
             try {
-                const response = await fetch("http://localhost:5000/user/signup", requestOptions)
+                const response = await fetch(g_data.api_url+"/user/signup", requestOptions)
                 const data = await response.json();
                 if (!data.token){
                     console.log('data', data)
