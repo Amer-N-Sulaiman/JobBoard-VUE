@@ -33,6 +33,12 @@
 import g_data from '@/g_data';
 export default {
     name: 'AddJob',
+    created(){
+        if (!this.$cookies.isKey('token')){
+            router.push('/listings')
+            return
+        }
+    },
     data(){
         return {
             title: '',

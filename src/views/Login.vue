@@ -36,6 +36,12 @@ import g_data from '@/g_data.js'
 
 export default {
     name: 'Login',
+    created(){
+        if (this.$cookies.isKey('token')){
+            router.push('/listings')
+            return
+        }
+    },
 
     data(){
         return {

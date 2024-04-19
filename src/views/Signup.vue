@@ -52,6 +52,12 @@ export default{
             error: ''
         }
     },
+    created(){
+        if (this.$cookies.isKey('token')){
+            router.push('/listings')
+            return
+        }
+    },
     methods: {
         async handleSignup() {
             this.submitting = true;

@@ -32,6 +32,7 @@ import g_data from '@/g_data.js';
 
 export default {
     name: 'Job',
+    
     data(){
         return {
             appliers: [],
@@ -40,9 +41,11 @@ export default {
         }
     },
     created() {
-        console.log("created")
+        if (!this.$cookies.isKey('token')){
+            router.push('/listings')
+            return
+        }
         this.fetchAppliers()
-        // all_job_appliers/<job_id>
     },
     methods: {
         async fetchAppliers(){

@@ -6,7 +6,8 @@
         <JobListingCard :job="job" style="margin:20px auto"/>
     </div>
 
-    <button v-if="!fetchingJobs || !jobs.length==0" type="button" class="btn btn-info mb-5" @click="fetchJobs">Load More</button>
+    <button v-if="!fetchingJobs && !jobs.length==0" type="button" class="btn btn-info mb-5" @click="fetchJobs">Load More</button>
+    <button v-if="fetchingJobs && !jobs.length==0" type="button" class="btn btn-info mb-5" @click="fetchJobs">Loading ...</button>
     <p v-if="fetchingJobs" class="card-text placeholder-glow">
         <span class="placeholder col-7"></span>
         <span class="placeholder col-7"></span>
