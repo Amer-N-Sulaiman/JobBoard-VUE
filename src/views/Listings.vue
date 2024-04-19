@@ -6,8 +6,14 @@
         <JobListingCard :job="job" style="margin:20px auto"/>
     </div>
 
-    <button type="button" class="btn btn-info mb-5" @click="fetchJobs">Load More</button>
-    
+    <button v-if="!fetchingJobs || !jobs.length==0" type="button" class="btn btn-info mb-5" @click="fetchJobs">Load More</button>
+    <p v-if="fetchingJobs" class="card-text placeholder-glow">
+        <span class="placeholder col-7"></span>
+        <span class="placeholder col-7"></span>
+        <span class="placeholder col-7"></span>
+        <span class="placeholder col-7"></span>
+        
+    </p>
 </template>
 
 <script>
@@ -25,7 +31,8 @@ export default {
     data() {
         return{
             jobs: [],
-            skipJobsNumber: 0
+            skipJobsNumber: 0,
+            fetchingJobs: false,
         }
         
     },
@@ -35,6 +42,7 @@ export default {
     },
     methods: {
         async fetchJobs() {
+            this.fetchingJobs = true
             try {
                 const response = await axios.get(g_data.api_url+'/job/view_all/' + this.skipJobsNumber);
                 if (response.data.length>0){
@@ -52,6 +60,7 @@ export default {
             } catch (error) {
                 console.error('Error fetching jobs:', error);
             }
+            this.fetchingJobs = false
         }
     }
 }

@@ -10,11 +10,16 @@
                 {{ job.title }}
                 <router-link :to="'/job/'+job.id" type="button" class="btn btn-info">Open</router-link>
             </li>
+
             <p v-if="fetchingJobs" class="card-text placeholder-glow">
                 <span class="placeholder col-7"></span>
-                
             </p>
+            
+            <li v-if="!fetchingJobs && userJobs.length==0" class="list-group-item text-center">
+                You have not posted any jobs yet.
+            </li>
         </ul>
+
         
     </div>
 </template>

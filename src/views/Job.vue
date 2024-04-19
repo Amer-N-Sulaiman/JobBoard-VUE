@@ -17,8 +17,10 @@
             </li>
             <p v-if="fetchingAppliers" class="card-text placeholder-glow">
                 <span class="placeholder col-7"></span>
-                
             </p>
+            <li v-if="!fetchingAppliers && appliers.length==0" class="list-group-item text-center">
+                Noone has applied for this job yet.
+            </li>
         </ul>
         
     </div>
