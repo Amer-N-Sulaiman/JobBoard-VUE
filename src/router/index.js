@@ -4,6 +4,8 @@ import Listings from '../views/Listings.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import AddJob from '../views/AddJob.vue'
+import Account from '../views/Account.vue'
+import Job from '../views/Job.vue'
 
 const routes = [
   {
@@ -39,6 +41,16 @@ const routes = [
     path: '/addjob',
     name: 'addjob',
     component: AddJob
+  },
+  {
+    path: '/account',
+    name: 'account',
+    component: Account
+  },
+  {
+    path: '/job/:job_id',
+    name: 'job',
+    component: Job
   }
 ]
 
