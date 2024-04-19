@@ -8,9 +8,14 @@
         <ul class="list-group list-group-flush">
             <li v-for="job in userJobs" v-bind:key="job.id" class="list-group-item d-flex flex-row align-items-center justify-content-between">
                 {{ job.title }}
-                <button type="button" class="btn btn-info">Open</button>
+                <router-link :to="'/job/'+job.id" type="button" class="btn btn-info">Open</router-link>
             </li>
+            <p v-if="fetchingJobs" class="card-text placeholder-glow">
+                <span class="placeholder col-7"></span>
+                
+            </p>
         </ul>
+        
     </div>
 </template>
 
@@ -24,6 +29,7 @@ export default {
         return {
             userJobs: [],
             token: '',
+            fetchingJobs: false
         }
     },
     created(){
@@ -36,6 +42,7 @@ export default {
     },
     methods: {
         async fetchUserJobs(token){
+            this.fetchingJobs = true
             const requestOptions = {
                 method: "GET",
                 headers: { 
@@ -52,6 +59,7 @@ export default {
             } catch(error) {
                 console.log(error)
             }
+            this.fetchingJobs=false
         }
     }
 }

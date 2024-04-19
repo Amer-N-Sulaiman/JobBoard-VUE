@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import g_data from '@/g_data.js'
 export default {
     name: 'JobListingCard',
     created() {
@@ -77,7 +78,7 @@ export default {
                 
             };
             try {
-                const response = await fetch("http://localhost:5000/job/apply/" + this.job.id, requestOptions)
+                const response = await fetch(g_data.api_url+"/job/apply/" + this.job.id, requestOptions)
                 const data = await response.json()
                 this.job.appliers = data.appliers
             } catch(error) {
