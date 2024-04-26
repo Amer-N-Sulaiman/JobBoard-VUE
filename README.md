@@ -1,4 +1,4 @@
-# jobboard-vue
+# jobboard-frontend
 
 ## Project setup
 ```
